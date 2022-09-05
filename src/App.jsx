@@ -6,6 +6,7 @@ import { TaskList } from "./components/TaskList";
 function App() {
 
   const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState([]);
 
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
           />
           <TaskList 
             tasks={tasks}
+            setTask={setTask}
           />
         </div>
       </div>

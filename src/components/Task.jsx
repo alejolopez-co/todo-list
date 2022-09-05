@@ -1,4 +1,4 @@
-export const Task = ({ task }) => {
+export const Task = ({ task, setTask }) => {
 
     const { title, taskDate, description } = task;
 
@@ -19,8 +19,19 @@ export const Task = ({ task }) => {
                 </span>
             </p>
             <div className="flex justify-between">
-                <button className="bg-green-700 hover:bg-green-800 mt-4 py-2 px-10 rounded-md text-white font-bold" type="button">Update</button>
-                <button className="bg-red-700 hover:bg-red-800 mt-4 py-2 px-10 rounded-md text-white font-bold" type="button">Delete</button>
+                <button
+                    className="bg-sky-500 hover:bg-sky-600 mt-4 py-2 px-10 rounded-md text-white font-bold"
+                    type="button"
+                    onClick={ () => setTask(task) }
+                >
+                    Update
+                </button>
+                <button
+                    className="bg-red-500 hover:bg-red-600 mt-4 py-2 px-10 rounded-md text-white font-bold"
+                    type="button"
+                >
+                    Delete
+                </button>
             </div>
         </div>
     )
