@@ -6,7 +6,7 @@ import { TaskList } from "./components/TaskList";
 function App() {
 
   const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState([]);
+  const [task, setTask] = useState({});
 
   return (
     <>
@@ -16,10 +16,11 @@ function App() {
         />
         <div className="mt-12 md:flex">
           <Form
+            task={task}
             tasks={tasks}
             setTasks={setTasks}
           />
-          <TaskList 
+          <TaskList
             tasks={tasks}
             setTask={setTask}
           />

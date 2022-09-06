@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AlertError } from "./AlertError";
 
-export const Form = ({ tasks, setTasks }) => {
+export const Form = ({ tasks, setTasks, task }) => {
 
     const [title, setTitle] = useState('');
     const [taskDate, setTaskDate] = useState('');
@@ -9,6 +9,14 @@ export const Form = ({ tasks, setTasks }) => {
 
     const [error, setError] = useState(false);
     const [messageError, setMessageError] = useState('');
+
+    useEffect(() => {
+        if (Object.keys(task).length > 0) {
+            setTitle(task.title);
+            setTaskDate(task.taskDate);
+            setDescription(task.description);
+        }
+    }, [task])
 
     const generateId = () => {
         return (
@@ -29,6 +37,7 @@ export const Form = ({ tasks, setTasks }) => {
         setError(false);
 
         // Task object
+
         const taskObject = {
             title,
             taskDate,
