@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AlertError } from "./AlertError";
 
-export const Form = ({ tasks, setTasks, task }) => {
+export const Form = ({ tasks, setTasks, task, setTask }) => {
 
     const [title, setTitle] = useState('');
     const [taskDate, setTaskDate] = useState('');
@@ -19,9 +19,8 @@ export const Form = ({ tasks, setTasks, task }) => {
     }, [task])
 
     const generateId = () => {
-        return (
-            Math.random().toString(30).substr(2)
-        )
+        const id = Math.random().toString(20).substr(2);
+        return id;
     }
 
     // Form validation
@@ -37,15 +36,28 @@ export const Form = ({ tasks, setTasks, task }) => {
         setError(false);
 
         // Task object
-
         const taskObject = {
             title,
             taskDate,
-            description,
-            id: generateId()
+            description
         }
 
-        setTasks([...tasks, taskObject]);
+
+        if (task.id) {
+            // Edit task
+            taskObject.id = task.id;
+            const updatedTasks = tasks.map((taskState) =>
+                taskState.id === task.id ? taskObject : taskState
+            );
+
+            setTasks(updatedTasks);
+            setTask({});
+
+        } else {
+            // Create task
+            taskObject.id = generateId();
+            setTasks([...tasks, taskObject]);
+        }
 
         // Clean fields
         setTitle('');
@@ -100,11 +112,20 @@ export const Form = ({ tasks, setTasks, task }) => {
                         onChange={(e) => { setDescription(e.target.value) }}
                     />
                 </div>
-                <input
-                    type="submit"
-                    className="bg-violet-700 w-full p-3 text-white font-bold rounded-md hover:bg-violet-900 transition-colors cursor-pointer"
-                    value="Create"
-                />
+                {!task.id ? (
+                    <input
+                        type="submit"
+                        className="bg-violet-700 w-full p-3 text-white font-bold rounded-md hover:bg-violet-900 transition-colors cursor-pointer"
+                        value="Create"
+                    />
+                ) : (
+                    <input
+                        type="submit"
+                        className="bg-sky-500 w-full p-3 text-white font-bold rounded-md hover:bg-sky-600 transition-colors cursor-pointer"
+                        value="Update"
+                    />
+                )
+                }
                 {error && (
                     <AlertError
                         messageError={messageError}

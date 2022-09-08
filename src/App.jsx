@@ -19,6 +19,7 @@ function App() {
             task={task}
             tasks={tasks}
             setTasks={setTasks}
+            setTask={setTask}
           />
           <TaskList
             tasks={tasks}
