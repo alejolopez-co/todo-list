@@ -1,6 +1,6 @@
 import { Task } from "./Task";
 
-export const TaskList = ({ tasks, setTask }) => {
+export const TaskList = ({ tasks, setTask, deleteTask }) => {
     return (
         <div className="md:w-1/2 lg:w-2/5 mx-5 mb-10 md:h-screen overflow-scroll">
             <h2 className="font-black text-3xl text-center mb-10">
@@ -12,6 +12,7 @@ export const TaskList = ({ tasks, setTask }) => {
                         key={task.id}
                         task={task}
                         setTask={setTask}
+                        deleteTask={deleteTask}
                     />
                 )
             })}

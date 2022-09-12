@@ -8,6 +8,12 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
 
+  const deleteTask = (id) => {
+    const updatedTask = tasks.filter( task => task.id !== id )
+
+    setTasks(updatedTask)
+  }
+
   return (
     <>
       <div className="container mx-auto mt-20">
@@ -24,6 +30,7 @@ function App() {
           <TaskList
             tasks={tasks}
             setTask={setTask}
+            deleteTask={deleteTask}
           />
         </div>
       </div>

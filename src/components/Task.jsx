@@ -1,6 +1,14 @@
-export const Task = ({ task, setTask }) => {
+export const Task = ({ task, setTask, deleteTask }) => {
 
-    const { title, taskDate, description } = task;
+    const { title, taskDate, description, id } = task;
+
+    const handleDelete = () => {
+        const respuesta = confirm('¿Do you want to delete the task? 🤔');
+
+        if (respuesta) {
+            deleteTask(id);
+        }
+    }
 
     return (
         <div className="bg-white shadow-md px-5 py-10 rounded-lg mt-5">
@@ -22,13 +30,14 @@ export const Task = ({ task, setTask }) => {
                 <button
                     className="bg-sky-500 hover:bg-sky-600 mt-4 py-2 px-10 rounded-md text-white font-bold"
                     type="button"
-                    onClick={ () => setTask(task) }
+                    onClick={() => setTask(task)}
                 >
                     Update
                 </button>
                 <button
                     className="bg-red-500 hover:bg-red-600 mt-4 py-2 px-10 rounded-md text-white font-bold"
                     type="button"
+                    onClick={handleDelete}
                 >
                     Delete
                 </button>
