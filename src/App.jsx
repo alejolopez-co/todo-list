@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form } from "./components/Form";
 import { Header } from "./components/Header";
 import { TaskList } from "./components/TaskList";
@@ -8,8 +8,22 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
 
+  useEffect(() => {
+
+    const getTasksLocalStorage = () => {
+      const tasksLocalStorage = JSON.parse(localStorage.getItem("tasks")) ?? [];
+      setTasks(tasksLocalStorage);
+    };
+
+    getTasksLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   const deleteTask = (id) => {
-    const updatedTask = tasks.filter( task => task.id !== id )
+    const updatedTask = tasks.filter(task => task.id !== id)
 
     setTasks(updatedTask)
   }
@@ -22,9 +36,9 @@ function App() {
         />
         <div className="mt-12 md:flex">
           <Form
-            task={task}
             tasks={tasks}
             setTasks={setTasks}
+            task={task}
             setTask={setTask}
           />
           <TaskList
